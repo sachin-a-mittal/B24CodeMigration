@@ -25,7 +25,7 @@ analysis_prompt = (BASE_DIR / "prompts" / "tal_analysis.txt").read_text(encoding
 rule_prompt = (BASE_DIR / "prompts" / "rule_extraction.txt").read_text(encoding="utf-8")
 feature_prompt = (BASE_DIR / "prompts" / "eps_feature_prompt.txt").read_text(encoding="utf-8")
 
-AZURE_KEY = "9wKNlRndrixJfMJUZe5TdTecdxVIwrVDruTmddgw6iQD2G9F88vyJQQJ99BLACfhMk5XJ3w3AAABACOGVGPD"
+
 AZURE_ENDPOINT = "https://gpt5-finance-dev.openai.azure.com/"
 DEPLOYMENT_NAME = "gpt-5.1-codex-mini"
 API_VERSION = "2025-03-01-preview"
