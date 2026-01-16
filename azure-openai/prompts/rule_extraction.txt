@@ -1,0 +1,10 @@
+From the analysis below, extract ONLY business rules.
+
+For each rule provide:
+- Rule name
+- Condition
+- Action
+- Response code
+
+ANALYSIS:
+{{ANALYSIS}}

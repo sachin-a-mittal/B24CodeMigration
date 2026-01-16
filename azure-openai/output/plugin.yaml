@@ -1,0 +1,36 @@
+pluginName: pan-luhn-check-digit-generator
+version: 1.0
+featureName: PAN Luhn Check Digit Generation
+supportedTransactionTypes:
+  - panCheckDigitGeneration
+inputFields:
+  - name: partialPan
+    type: string
+    description: >
+      Numeric string representing all PAN digits except the final Luhn check digit.
+      Must match the expected PAN length minus one.
+    required: true
+    constraints:
+      - numericOnly
+      - lengthMatchesExpectedPartialPan
+outputFields:
+  - name: checkDigit
+    type: string
+    description: Single numeric digit computed using the Luhn algorithm that completes the PAN.
+    format: [0-9]
+  - name: responseCode
+    type: string
+    description: Standard success indicator denoting successful computation.
+    example: "200"
+errorCodes:
+  - code: INVALID_PARTIAL_PAN
+    description: >
+      Indicates upstream validation failure due to non-numeric characters or incorrect length.
+      Feature assumes inputs are validated and will not be invoked with such values.
+    status: 400
+externalDependencies:
+  - name: upstreamValidationService
+    type: validation
+    description: >
+      Ensures the partial PAN contains only digits and matches the expected length
+      before invoking this feature.

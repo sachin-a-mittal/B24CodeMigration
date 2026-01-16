@@ -1,0 +1,21 @@
+You are a payments domain expert with deep knowledge of
+Base24 TAL and EPS.
+
+TASK:
+Analyze the TAL code below and propose an EPS-compatible
+feature definition.
+
+CONSTRAINTS:
+- Do not customize EPS
+- Extract business intent only
+
+DELIVERABLES:
+1. Feature Name
+2. Business Purpose
+3. Inputs
+4. Rules
+5. Outputs
+6. Error Mapping
+
+TAL CODE:
+{{TAL_CODE}}

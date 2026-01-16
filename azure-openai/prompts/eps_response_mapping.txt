@@ -1,0 +1,7 @@
+Map TAL response codes from the EPS feature below
+to EPS-standard responses.
+
+Provide a clear mapping table.
+
+EPS FEATURE:
+{{FEATURE}}

@@ -1,0 +1,19 @@
+You are designing an EPS plugin.
+
+Using the EPS feature definition below,
+produce an EPS plugin contract.
+
+Output format: YAML
+
+Include:
+- pluginName
+- version
+- featureName
+- supportedTransactionTypes
+- inputFields
+- outputFields
+- errorCodes
+- externalDependencies
+
+EPS FEATURE:
+{{FEATURE}}

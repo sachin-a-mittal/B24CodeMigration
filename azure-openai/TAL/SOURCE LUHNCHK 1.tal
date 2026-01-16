@@ -1,0 +1,80 @@
+?SOURCE LUHNCHK
+?SYMBOLS
+?NOLIST
+
+!=======================================================================
+! PROCEDURE: CALC_LUHN_DIGIT
+! PURPOSE:   Calculates the Luhn Check Digit (Last digit) for a given PAN.
+! INPUTS:    pan_ptr - Pointer to the PAN string (e.g., "4111...")
+!            len     - Length of the input string (usually 15 for a 16-digit card)
+! RETURNS:   The integer value of the checksum (0-9)
+!=======================================================================
+
+INT PROC calc_luhn_digit( pan_ptr, len );
+  STRING .EXT pan_ptr;  ! Pointer to the external string
+  INT len;              ! Length of the partial PAN
+  VARIABLE;
+  BEGIN
+  
+  INT i;
+  INT digit_val;
+  INT working_val;
+  INT sum;
+  INT remainder;
+  INT check_digit;
+  INT double_flag;      ! Boolean flag: 1 = double, 0 = don't double
+
+  sum := 0;
+  
+  ! We start from the rightmost digit of the INPUT.
+  ! In the final full card number, this digit is in an "Even" position
+  ! (2nd from right), so we MUST start with doubling enabled.
+  double_flag := 1;  
+
+  ! Iterate backwards through the string
+  DO
+    BEGIN
+    i := len - 1;
+
+    ! Extract byte and convert ASCII ('0'-'9') to Integer (0-9)
+    ! $DB reads a byte from the string pointer
+    digit_val := $DB(pan_ptr[i]) - 48;
+
+    IF double_flag = 1 THEN
+      BEGIN
+      working_val := digit_val * 2;
+      ! If result > 9, add digits (e.g., 16 -> 1+6=7). 
+      ! A shortcut is simply subtracting 9.
+      IF working_val > 9 THEN
+        working_val := working_val - 9;
+      END
+    ELSE
+      BEGIN
+      working_val := digit_val;
+      END;
+
+    sum := sum + working_val;
+
+    ! Toggle the flag for the next iteration
+    IF double_flag = 1 THEN double_flag := 0 ELSE double_flag := 1;
+    
+    ! Decrement length to move backwards
+    len := len - 1;
+    END
+  UNTIL len = 0;
+
+  ! -- Final Modulo 10 Calculation --
+  ! TAL does not have a '%' operator like C. We calculate remainder manually:
+  ! remainder = sum - ( (sum / 10) * 10 )
+  
+  remainder := sum - ( (sum / 10) * 10 );
+
+  ! The check digit is what you must add to the remainder to reach the next multiple of 10.
+  IF remainder = 0 THEN
+    check_digit := 0
+  ELSE
+    check_digit := 10 - remainder;
+
+  RETURN check_digit;
+
+  END; ! End Procedure

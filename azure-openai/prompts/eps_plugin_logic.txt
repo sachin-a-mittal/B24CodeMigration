@@ -1,0 +1,17 @@
+Generate EPS plugin implementation logic
+for the feature below.
+
+Constraints:
+- Stateless
+- No EPS core customization
+- No procedural TAL flow
+- Business rules only
+- Assume EPS invokes this via a plugin hook
+
+Output:
+- Java plugin skeleton
+- Clear method logic
+- No framework boilerplate
+
+EPS FEATURE:
+{{FEATURE}}

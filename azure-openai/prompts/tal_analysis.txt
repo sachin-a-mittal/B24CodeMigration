@@ -1,0 +1,12 @@
+Analyze the TAL code below and explain:
+- Business purpose
+- Transaction types
+- Inputs and outputs
+- Validations
+- Error handling
+
+Explain in business language.
+
+
+TAL CODE:
+{{TAL_CODE}}
