@@ -1,0 +1,36 @@
+pluginName: "EPS-PAN-Luhn-Check"
+version: "1.0"
+featureName: "PAN Luhn Check Digit Calculation"
+supportedTransactionTypes:
+  - "ENROLLMENT"
+  - "TOKENIZATION"
+  - "AUTHORIZATION"
+inputFields:
+  - name: "partial_pan"
+    type: "string"
+    required: true
+    description: "Numeric PAN digits excluding the final Luhn check digit."
+    format: "Digits only, up to 18 characters."
+  - name: "pan_source_context"
+    type: "string"
+    required: false
+    description: "Optional metadata indicating the originating flow (enrollment/tokenization/authorization)."
+outputFields:
+  - name: "check_digit"
+    type: "string"
+    description: "Single digit (0–9) that completes the PAN according to Luhn rules."
+  - name: "luhn_total"
+    type: "integer"
+    description: "Sum of transformed digits before deriving the check digit, provided for tracing."
+errorCodes:
+  - code: "INVALID_PAN_DATA"
+    description: "Partial PAN contains invalid characters or unacceptable length; unable to compute Luhn check digit."
+  - code: "INVALID_LENGTH_ERROR"
+    description: "Partial PAN length outside expected bounds; treat as invalid PAN fragment."
+  - code: "PROCESSING_FAILURE"
+    description: "Unexpected internal error occurred while calculating the Luhn check digit."
+externalDependencies:
+  - name: "EPS Core Services"
+    description: "Leverages EPS framework utilities for logging, validation, and error handling."
+  - name: "Audit/Trace Logging"
+    description: "Optional logging to capture partial_pan, luhn_total, and computation context for troubleshooting."
